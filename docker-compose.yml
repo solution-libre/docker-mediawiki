@@ -20,15 +20,16 @@ services:
       # After initial setup, download LocalSettings.php to the volume directory
       # and uncomment the following line and use compose to restart the 
       # mediawiki service
-      # - config:/var/www/html/LocalSettings.php
+      # - ./docker-volumes/LocalSettings.php:/var/www/html/LocalSettings.php
     depends_on:
       - db
-
+      - parsoid
+      - redis
   db:
     image: mariadb
     restart: unless-stopped
     volumes:
-      - ./docker-volume/db:/var/lib/mysql
+      - db:/var/lib/mysql
     environment:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
@@ -43,7 +44,7 @@ services:
     image: redis
 
 volumes:
-  config:
+  db:
   extensions:
   images:
   skins:
