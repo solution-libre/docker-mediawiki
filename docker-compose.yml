@@ -8,8 +8,10 @@ services:
     # remove them if you are using another reverse proxy.
     labels:
       traefik.enable: 'true'
-      traefik.frontend.rule: "Host:${HOSTNAME}"
-      traefik.port: '80'
+      traefik.http.routers.mediawiki.entrypoints: websecure
+      traefik.http.routers.mediawiki.rule: "Host(`${HOSTNAME}`)"
+      traefik.http.routers.mediawiki.tls.certresolver: myresolver   
+      traefik.http.services.mediawiki.loadbalancer.server.port: 80
     # If you don't want to use a reverse proxy (not suitable for production!)
     # ports:
     #  - "80:80"
