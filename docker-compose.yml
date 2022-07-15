@@ -12,6 +12,9 @@ services:
       traefik.http.routers.mediawiki.rule: "Host(`${HOSTNAME}`)"
       traefik.http.routers.mediawiki.tls.certresolver: myresolver   
       traefik.http.services.mediawiki.loadbalancer.server.port: 80
+    networks:
+      - web
+      - default
     # If you don't want to use a reverse proxy (not suitable for production!)
     # ports:
     #  - "80:80"
@@ -44,6 +47,10 @@ services:
       PARSOID_DOMAIN_hostname: "https://${HOSTNAME}/api.php"
   redis:
     image: redis:alpine
+
+networks:
+  web:
+    external: true
 
 volumes:
   db:
