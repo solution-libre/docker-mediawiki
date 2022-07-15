@@ -41,7 +41,7 @@ services:
     environment:
       PARSOID_DOMAIN_hostname: "https://${HOSTNAME}/api.php"
   redis:
-    image: redis
+    image: redis:alpine
 
 volumes:
   db:
